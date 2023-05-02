@@ -14,7 +14,15 @@ class Application < Sinatra::Base
   get '/names' do
     return "Julia, Mary, Karim"
   end
+  post '/sort-names' do
+    names = params[:names]
+    split_names = names.split(",")
+    sorted_names = split_names.sort!
+    return sorted_names.join(",")
+  end
 end
+
+
 # Incoming request: GET /todos/1
 
 # Routes 
