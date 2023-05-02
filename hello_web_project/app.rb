@@ -7,13 +7,12 @@ class Application < Sinatra::Base
     
     return 'Hello!'
   end
-
-  get '/posts' do
-    return 'a list of posts'
+  get '/hello' do
+    name = params[:name]
+  return "Hello #{name}!"
   end
-
-  post '/posts' do
-    return 'Post was created'
+  get '/names' do
+    return "Julia, Mary, Karim"
   end
 end
 # Incoming request: GET /todos/1
