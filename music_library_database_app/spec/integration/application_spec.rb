@@ -23,9 +23,10 @@ describe Application do
     context "GET /albums" do
       it "returns a list of all albums" do
         response = get('/albums')
-        expected_response = 'Doolittle, Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring'
         expect(response.status).to eq(200)
-        expect(response.body).to eq(expected_response)
+        expect(response.body).to include('Title: Doolittle')
+        expect(response.body).to include('Release: 1989')
+        expect(response.body).to include('Title: Surfer Rosa')
       end
     end
 
@@ -37,13 +38,6 @@ describe Application do
         expect(response.body).to include('Release year: 1989')
         expect(response.body).to include('Artist: Pixies')
       end
-      # it "returns a induvidual album" do
-      #   response = get('/albums/2')
-      #   expect(response.status).to eq(200)
-      #   expect(response.body).to eq('<h1>Surfer Rosa</h1>')
-      #   expect(response.body).to include('Release year: 1989')
-      #   expect(response.body).to include('Artist: Pixies')
-      # end
     end
     
   context 'POST /albums' do
