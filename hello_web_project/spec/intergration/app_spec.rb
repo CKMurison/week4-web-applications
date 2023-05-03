@@ -13,16 +13,10 @@ describe Application do
   # GET /
 
   context 'GET /hello' do
-    it 'returns Hello Cameron!' do
-      response = get('/hello?name=Cameron')
-      expect(response.status).to be(200)
-      expect(response.body).to eq('Hello Cameron!')
-    end
-
-    it 'returns Hello Jim!' do
-      response = get('/hello?name=Jim')
-      expect(response.status).to be(200)
-      expect(response.body).to eq('Hello Jim!')
+    it 'returns Hello!' do
+      response = get('/hello')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>Hello!</h1>')
     end
   end
 

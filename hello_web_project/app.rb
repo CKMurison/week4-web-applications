@@ -7,13 +7,15 @@ class Application < Sinatra::Base
     
     return 'Hello!'
   end
+
   get '/hello' do
-    name = params[:name]
-  return "Hello #{name}!"
+    return erb(:index)
   end
+
   get '/names' do
     return "Julia, Mary, Karim"
   end
+
   post '/sort-names' do
     names = params[:names]
     split_names = names.split(",")
