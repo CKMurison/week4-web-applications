@@ -61,4 +61,21 @@ describe Application do
       expect(response.body).to include('Wild Nothing')
     end
   end
+
+  context 'GET /' do
+    it 'returns a hello page if password is correct' do
+      response = get('/', password: 'abcd')
+      expect(response.body).to include('Hello!')
+    end
+   
+    it 'returns a forbidden page if password is incorrect' do
+      response = get('/', password: 'aasdjkadsksa')
+      expect(response.body).to include('DENIED!')
+    end
+  end
 end
+
+ # response = get('/')
+      # expect(response.body).to include('<p>Captain Melvin Seahorse</p>')
+      # expect(response.body).to include('<p>Jimmy Shrimps</p>')
+      # expect(response.body).to include('<p>Smelivn</p>')
