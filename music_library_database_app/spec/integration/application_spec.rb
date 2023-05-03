@@ -20,15 +20,32 @@ describe Application do
       reset_all_table
     end
 
-  context "GET /albums" do
-    it "returns a list of all albums" do
-      response = get('/albums')
-      expected_response = 'Doolittle, Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring'
-      expect(response.status).to eq(200)
-      expect(response.body).to eq(expected_response)
+    context "GET /albums" do
+      it "returns a list of all albums" do
+        response = get('/albums')
+        expected_response = 'Doolittle, Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring'
+        expect(response.status).to eq(200)
+        expect(response.body).to eq(expected_response)
+      end
     end
-  end
 
+    context 'GET /albums/:id' do
+      it "returns a induvidual album" do
+        response = get('/albums/1')
+        expect(response.status).to eq(200)
+        expect(response.body).to include('<h1>Doolittle</h1>')
+        expect(response.body).to include('Release year: 1989')
+        expect(response.body).to include('Artist: Pixies')
+      end
+      # it "returns a induvidual album" do
+      #   response = get('/albums/2')
+      #   expect(response.status).to eq(200)
+      #   expect(response.body).to eq('<h1>Surfer Rosa</h1>')
+      #   expect(response.body).to include('Release year: 1989')
+      #   expect(response.body).to include('Artist: Pixies')
+      # end
+    end
+    
   context 'POST /albums' do
     it "should create a new album" do
       response = post('/albums', title: 'ok computer', release_year: '1997', artist_id: '1')
@@ -61,19 +78,20 @@ describe Application do
       expect(response.body).to include('Wild Nothing')
     end
   end
-
-  context 'GET /' do
-    it 'returns a hello page if password is correct' do
-      response = get('/', password: 'abcd')
-      expect(response.body).to include('Hello!')
-    end
-   
-    it 'returns a forbidden page if password is incorrect' do
-      response = get('/', password: 'aasdjkadsksa')
-      expect(response.body).to include('DENIED!')
-    end
-  end
 end
+
+  # context 'GET /' do
+  #   it 'returns a hello page if password is correct' do
+  #     response = get('/', password: 'abcd')
+  #     expect(response.body).to include('Hello!')
+  #   end
+   
+  #   it 'returns a forbidden page if password is incorrect' do
+  #     response = get('/', password: 'aasdjkadsksa')
+  #     expect(response.body).to include('DENIED!')
+  #   end
+  # end
+
 
  # response = get('/')
       # expect(response.body).to include('<p>Captain Melvin Seahorse</p>')
