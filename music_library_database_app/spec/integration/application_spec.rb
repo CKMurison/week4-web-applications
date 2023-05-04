@@ -24,9 +24,8 @@ describe Application do
       it "returns a list of all albums" do
         response = get('/albums')
         expect(response.status).to eq(200)
-        expect(response.body).to include('Title: Doolittle')
-        expect(response.body).to include('Release: 1989')
-        expect(response.body).to include('Title: Surfer Rosa')
+        expect(response.body).to include('<a href="/albums/2"> Surfer Rosa </a> </p>')
+        expect(response.body).to include('<a href="/albums/3"> Waterloo </a> </p>')
       end
     end
 
@@ -55,9 +54,22 @@ describe Application do
   context "GET /artists" do
     it "gets a list of all the artists" do
       response = get('/artists')
-      expected_response = 'Pixies, ABBA, Taylor Swift, Nina Simone'
+      # expected_response = 'Pixies, ABBA, Taylor Swift, Nina Simone'
       expect(response.status).to eq(200)
-      expect(response.body).to eq(expected_response)
+      expect(response.body).to include('<a href="/artists/1"> Pixies </a>')
+      expect(response.body).to include('<a href="/artists/2"> ABBA </a>')
+    end
+
+    it "gets artists id 1" do
+      response = get('/artists/1')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('Pixies')
+    end
+    
+    it "gets artists id 2" do
+      response = get('/artists/2')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>ABBA</h1>')
     end
   end
 
@@ -66,28 +78,8 @@ describe Application do
       response = post('/artists', name: 'Wild Nothing', genre: 'Indie')
       expect(response.status).to eq(200)
       expect(response.body).to eq('')
-
       response = get('artists')
-
       expect(response.body).to include('Wild Nothing')
     end
   end
 end
-
-  # context 'GET /' do
-  #   it 'returns a hello page if password is correct' do
-  #     response = get('/', password: 'abcd')
-  #     expect(response.body).to include('Hello!')
-  #   end
-   
-  #   it 'returns a forbidden page if password is incorrect' do
-  #     response = get('/', password: 'aasdjkadsksa')
-  #     expect(response.body).to include('DENIED!')
-  #   end
-  # end
-
-
- # response = get('/')
-      # expect(response.body).to include('<p>Captain Melvin Seahorse</p>')
-      # expect(response.body).to include('<p>Jimmy Shrimps</p>')
-      # expect(response.body).to include('<p>Smelivn</p>')
