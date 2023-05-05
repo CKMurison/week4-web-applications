@@ -54,7 +54,6 @@ describe Application do
   context "GET /artists" do
     it "gets a list of all the artists" do
       response = get('/artists')
-      # expected_response = 'Pixies, ABBA, Taylor Swift, Nina Simone'
       expect(response.status).to eq(200)
       expect(response.body).to include('<a href="/artists/1"> Pixies </a>')
       expect(response.body).to include('<a href="/artists/2"> ABBA </a>')
